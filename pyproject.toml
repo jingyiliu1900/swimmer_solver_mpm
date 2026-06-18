@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swimmers-mpm"
+version = "0.1.0"
+description = "A 2D MLS-MPM fluid + deformable-solid simulator you drive with shapes"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Jingyi Liu" }]
+keywords = ["mpm", "simulation", "fluid", "soft-body", "taichi", "physics"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "taichi>=1.7.0",
+    "numpy>=1.23",
+    "matplotlib>=3.6",
+    "pillow>=9.0",
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/JingyiLiu/swimmer_solver_mpm"
+Source = "https://github.com/JingyiLiu/swimmer_solver_mpm"
+
+[tool.setuptools.packages.find]
+where = ["src"]

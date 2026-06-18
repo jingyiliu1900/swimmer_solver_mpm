@@ -1,0 +1,27 @@
+# Documented default tunables for the swimmers simulator.
+#
+# These mirror the defaults in main.py / solver.py. They are kept here as a
+# single readable reference; command-line flags (--n-grid, --dt, --substeps,
+# --scene, --arch) override them at runtime.
+
+simulation:
+  scene: splash        # splash | dam_break
+  arch: cpu            # cpu | gpu
+  n_grid: 128          # background grid resolution (n_grid x n_grid)
+  dt: 1.0e-4           # substep size; lower this if stiff materials explode
+  substeps: 40         # MLS-MPM substeps per rendered frame
+  gravity: 9.8
+
+# Per-material constitutive parameters. Authoritative copy lives in
+# src/swimmers/materials.py:MATERIALS.
+materials:
+  water:
+    youngs: 400.0      # acts as bulk modulus (incompressibility) for the fluid
+    poisson: 0.2
+    rho: 1.0
+    color: 0x068587
+  elastic:
+    youngs: 2000.0     # stiffness of the deformable solid
+    poisson: 0.3
+    rho: 1.0
+    color: 0xED553B
