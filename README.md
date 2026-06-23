@@ -131,5 +131,5 @@ Stiffer materials (higher Young's modulus) and higher viscosity need a smaller
 `Simulation(...)`.
 
 > Inspired by the modular structure and MPM prototype of
-> [allierc/Plexus](https://github.com/allierc/Plexus), specialised here to
+> [allierc/Plexus](https://github.com/allierc), specialised here to
 > fluid ↔ deformable-solid interaction in 2D.
