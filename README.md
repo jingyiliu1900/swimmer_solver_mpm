@@ -130,6 +130,6 @@ Stiffer materials (higher Young's modulus) and higher viscosity need a smaller
 `src/swimmers/materials.py`, or pass `dt` / `n_grid` / `viscosity` to
 `Simulation(...)`.
 
-> Inspired by the modular structure and MPM prototype of
-> [allierc/Plexus](https://github.com/allierc), specialised here to
+> Inspired by the prototype of
+> [allierc](https://github.com/allierc), specialised here to
 > fluid ↔ deformable-solid interaction in 2D.
