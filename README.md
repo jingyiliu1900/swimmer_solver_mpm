@@ -91,6 +91,27 @@ python examples/jellyfish_cell.py     # a pulsing jellyfish bell         -> jell
 python examples/viscosity_showcase.py # water vs syrup vs honey          -> viscosity.gif
 ```
 
+### MPM vs SPH
+
+The engine is MPM, but the repo ships a second, purely-Lagrangian fluid solver
+— weakly-compressible **SPH** (`swimmers.SPHSolver`) — so you can put the two
+methods side by side on the *same* dam-break:
+
+```bash
+python examples/mpm_vs_sph.py             # writes mpm_vs_sph.gif (2 panels)
+python examples/mpm_vs_sph.py --headless  # no render, just stability stats
+```
+
+Both solvers start from one identical particle cloud and advance the same
+simulated time per frame. They agree on the collapse and the run-up against the
+far wall, then diverge in character: MPM (grid-coupled) keeps the wave a smooth,
+coherent sheet; SPH (kernel-summed neighbour forces) breaks the free surface
+into sharper, splashier spray. `SPHSolver` mirrors `MPMSolver`'s interface
+(`x` / `v` / `material` fields, `load_particles`, `step`), so it drops into the
+same render loop. It is a *fluid* solver — every particle is simulated as
+weakly-compressible water — so it complements, rather than replaces, MPM's
+fluid↔solid coupling.
+
 There's also a classic windowed runner for the named scenes:
 
 ```bash
@@ -104,10 +125,11 @@ python main.py --scene dam_break --headless --frames 120   # no-window sanity ch
 src/swimmers/
   sim.py         # Simulation: the high-level "scene from shapes" API
   solver.py      # MPMSolver: P2G → grid update → G2P substep (the physics)
+  sph_solver.py  # SPHSolver: weakly-compressible SPH fluid (foil for MPM)
   materials.py   # Material params (Young's modulus, Poisson, density, colour)
   scenes.py      # shape samplers: fill_polygon / fill_rect / fill_circle / star / ...
   render.py      # rasterise frames + write an animated GIF (Pillow)
-examples/        # GIF-rendering demos (custom shapes, fish, jellyfish, viscosity)
+examples/        # GIF-rendering demos (custom shapes, fish, jellyfish, MPM-vs-SPH)
 main.py          # windowed / headless runner for the named scenes
 pyproject.toml   # packaging (pip install -e .)
 ```

@@ -40,6 +40,30 @@ def fill_rect(
     return pts, mat, _velocity(n, velocity)
 
 
+def fill_rect_lattice(
+    lower: tuple[float, float],
+    size: tuple[float, float],
+    material: int,
+    spacing: float,
+    velocity: tuple[float, float] = (0.0, 0.0),
+) -> Group:
+    """Sample a rectangle on a regular lattice of the given ``spacing``.
+
+    Unlike :func:`fill_rect`, which scatters particles at random, this lays them
+    on an even grid. SPH needs a quiet, near-equilibrium start (random placement
+    puts particles on top of each other, spiking the density-summation pressure
+    and detonating the block), so the MPM-vs-SPH comparison samples both solvers
+    from this lattice. MPM is equally happy starting from it.
+    """
+    sx, sy = size
+    xs = np.arange(lower[0] + 0.5 * spacing, lower[0] + sx, spacing)
+    ys = np.arange(lower[1] + 0.5 * spacing, lower[1] + sy, spacing)
+    gx, gy = np.meshgrid(xs, ys)
+    pts = np.stack([gx.ravel(), gy.ravel()], axis=1)
+    mat = np.full(len(pts), material, dtype=np.int32)
+    return pts, mat, _velocity(len(pts), velocity)
+
+
 def fill_circle(
     center: tuple[float, float],
     radius: float,

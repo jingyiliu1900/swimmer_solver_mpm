@@ -21,10 +21,12 @@ method, not special-cased code.
 
 from .materials import WATER, ELASTIC, RIGID, SWIMMER, Material, MATERIALS
 from .solver import MPMSolver
+from .sph_solver import SPHSolver
 from .sim import Simulation
 
 __all__ = [
     "Simulation",
     "MPMSolver",
+    "SPHSolver",
     "WATER", "ELASTIC", "RIGID", "SWIMMER", "Material", "MATERIALS",
 ]
